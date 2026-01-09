@@ -1,0 +1,73 @@
+theme = "PaperMod"
+baseURL = 'https://ai-edu-blog.pages.dev/'
+languageCode = 'zh-cn'
+title = 'AI赋能语文教学资源建设'
+
+# 运行环境配置
+[outputs]
+    home = ["HTML", "RSS", "JSON"]
+
+[params]
+    # 全局背景图片设置
+    backgroundUrl = "https://img.qianmo.de5.net/PicGo/99581f403e816e015a3e1d6852c88b6c.png"
+
+    env = "production"
+    title = "AI 语文教育"
+    description = "探索人工智能与语文教学的深度融合"
+    author = "课题组"
+
+    # 界面功能开关
+    ShowReadingTime = true
+    ShowShareButtons = true
+    ShowPostNavLinks = true
+    ShowBreadCrumbs = true
+    ShowCodeCopyButtons = true
+    ShowToc = true  # 开启文章目录
+
+    # 专家门户首页设置 (Profile Mode)
+    [params.profileMode]
+        enabled = true
+        title = "AI 赋能语文教育资源建设"
+        subtitle = "「 智驭语言 · 文以化人 」<br/><span class='tech-subtitle'>科技引领教学变革，数据驱动教育创新</span>"
+        [[params.profileMode.buttons]]
+            name = "📚 进入资源库"
+            url = "/posts"
+        [[params.profileMode.buttons]]
+            name = "🔍 关于课题组"
+            url = "/about"
+
+    # 社交链接
+    [[params.socialIcons]]
+        name = "github"
+        url = "https://github.com"
+    [[params.socialIcons]]
+        name = "email"
+        url = "mailto:yourname@example.com"
+
+    # 搜索设置
+    [params.searchConfig]
+        limit = 20
+
+    [params.assets]
+        disableHLJS = false
+
+    [params.label]
+        text = "AI 语文教育"
+
+# 导航菜单设置
+[[menu.main]]
+    name = "首页"
+    url = "/"
+    weight = 10
+[[menu.main]]
+    name = "资源库"
+    url = "/posts"
+    weight = 20
+[[menu.main]]
+    name = "搜索"
+    url = "/search"
+    weight = 30
+[[menu.main]]
+    name = "关于我们"
+    url = "/about"
+    weight = 40

@@ -1,0 +1,197 @@
+<!-- 
+    路径: layouts/partials/extend_head.html
+    功能: 注入全站 CSS 样式 (流光条、Logo 动画、侧边广告、管理员工具箱)
+-->
+
+<style>
+    /* 1. 字体与全局变量 */
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&display=swap');
+
+    :root {
+        --theme: #1a5fb4;      /* 科技蓝 */
+        --primary: #2c3e50;    /* 深墨色 */
+        --entry: rgba(255, 255, 255, 0.85); /* 玻璃拟态卡片背景 */
+        --bg-overlay: rgba(253, 252, 248, 0.9); /* 宣纸质感遮罩层 */
+        
+        /* 核心：对接 Hugo 配置文件。
+           当您在 hugo.toml 的 [params] 下设置 backgroundUrl 时，
+           此处会自动读取并设置为全站背景。
+        */
+        --global-bg: url('{{ .Site.Params.backgroundUrl | default "" }}'); 
+    }
+
+    /* --- 2. 顶部流光装饰条 --- */
+    body::before {
+        content: "";
+        display: block;
+        height: 4px;
+        width: 100%;
+        background: linear-gradient(90deg, #1a2a6c, #b21f1f, #fdbb2d, #1a2a6c);
+        background-size: 300% 100%;
+        animation: flowGradient 8s linear infinite;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 9999;
+    }
+
+    @keyframes flowGradient {
+        0% { background-position: 0% 50%; }
+        100% { background-position: 100% 50%; }
+    }
+
+    /* --- 3. 全局背景控制 --- */
+    body {
+        position: relative;
+        min-height: 100vh;
+        background-color: #fdfcf8 !important;
+        font-family: "Noto Serif SC", "Source Han Serif CN", serif !important;
+        color: var(--primary) !important;
+        transition: background 0.5s ease;
+    }
+
+    /* 背景图层：受 CSS 变量 --global-bg 控制 */
+    #custom-bg-layer {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -2;
+        background-image: var(--global-bg);
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        transition: background-image 0.8s ease-in-out;
+    }
+
+    /* 宣纸遮罩层 */
+    #bg-overlay-layer {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        background: var(--bg-overlay);
+        background-image: radial-gradient(rgba(26, 95, 180, 0.05) 0.8px, transparent 0.8px);
+        background-size: 30px 30px;
+        pointer-events: none;
+    }
+
+    /* --- 4. Logo 呼吸浮动动画 --- */
+    @keyframes logoFloat {
+        0% { transform: translateY(0px); filter: drop-shadow(0 5px 15px rgba(26, 95, 180, 0.1)); }
+        50% { transform: translateY(-12px); filter: drop-shadow(0 20px 35px rgba(26, 95, 180, 0.2)); }
+        100% { transform: translateY(0px); filter: drop-shadow(0 5px 15px rgba(26, 95, 180, 0.1)); }
+    }
+
+    .profile_inner img {
+        animation: logoFloat 5s ease-in-out infinite;
+        transition: all 0.3s ease;
+    }
+
+    /* --- 5. 首页标题设计 --- */
+    .profile_inner h1 {
+        font-size: 3.8rem !important;
+        font-weight: 700 !important;
+        background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d) !important; 
+        -webkit-background-clip: text !important;
+        -webkit-text-fill-color: transparent !important;
+        margin-bottom: 30px !important;
+    }
+
+    /* --- 6. 侧边悬浮广告位样式 --- */
+    .side-ad-slot {
+        position: fixed;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 130px;
+        height: 360px;
+        background: rgba(255, 255, 255, 0.75);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(0, 0, 0, 0.06);
+        border-radius: 16px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        z-index: 90;
+        padding: 15px;
+        box-shadow: 0 15px 35px rgba(0,0,0,0.05);
+    }
+
+    .ad-left { left: 25px; }
+    .ad-right { right: 25px; }
+
+    .ad-content {
+        font-size: 0.95rem;
+        color: var(--primary);
+        writing-mode: vertical-rl;
+        letter-spacing: 6px;
+        font-weight: 700;
+    }
+
+    @media screen and (max-width: 1350px) {
+        .side-ad-slot { display: none; }
+    }
+
+    /* --- 7. 管理员工具箱 UI --- */
+    #admin-tools {
+        position: fixed;
+        bottom: 25px;
+        right: 25px;
+        z-index: 1000;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 12px;
+    }
+
+    .admin-btn {
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        background: var(--primary);
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+        font-size: 1.3rem;
+        transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .admin-btn:hover {
+        background: var(--theme);
+        transform: scale(1.1);
+    }
+
+    .admin-modal {
+        display: none;
+        background: rgba(255, 255, 255, 0.98);
+        backdrop-filter: blur(10px);
+        padding: 20px;
+        border-radius: 15px;
+        box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+        width: 300px;
+        border: 1px solid #eee;
+        animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* --- 8. 文章卡片美化 --- */
+    .post-entry {
+        background: var(--entry) !important;
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(255,255,255,0.4) !important;
+        border-radius: 24px !important;
+        padding: 35px !important;
+        transition: all 0.4s ease !important;
+    }
+</style>
