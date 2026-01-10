@@ -1,9 +1,15 @@
+# 修改核心：将 baseURL 指向您的自定义域名
+baseURL = 'https://aiyuwen.de5.net/'
 theme = "PaperMod"
-baseURL = 'https://ai-edu-blog.pages.dev/'
 languageCode = 'zh-cn'
-title = 'AI赋能语文教学资源建设'
+title = 'AI赋能语文教育资源建设'
 
-# 运行环境配置
+# 允许在 Markdown 中使用原生 HTML (解决侧边栏和页脚渲染问题)
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
+
 [outputs]
     home = ["HTML", "RSS", "JSON"]
 
@@ -22,7 +28,7 @@ title = 'AI赋能语文教学资源建设'
     ShowPostNavLinks = true
     ShowBreadCrumbs = true
     ShowCodeCopyButtons = true
-    ShowToc = true  # 开启文章目录
+    ShowToc = true 
 
     # 专家门户首页设置 (Profile Mode)
     [params.profileMode]
@@ -40,17 +46,8 @@ title = 'AI赋能语文教学资源建设'
     [[params.socialIcons]]
         name = "github"
         url = "https://github.com"
-    [[params.socialIcons]]
-        name = "email"
-        url = "mailto:yourname@example.com"
 
-    # 搜索设置
-    [params.searchConfig]
-        limit = 20
-
-    [params.assets]
-        disableHLJS = false
-
+    # 网站标签
     [params.label]
         text = "AI 语文教育"
 
