@@ -59,7 +59,7 @@
     }
     .profile_inner img { animation: logoFloat 5s ease-in-out infinite; }
 
-    /* 5. 侧边悬浮装饰框样式 (核心修改) */
+    /* 5. 侧边悬浮装饰框样式 */
     .floating-panel {
         position: fixed;
         top: 50%;
@@ -80,21 +80,21 @@
         transition: all 0.3s ease;
     }
 
-    /* 左侧位置 */
     .pos-l { left: 25px; }
-    /* 右侧位置 */
     .pos-r { right: 25px; }
 
+    /* 核心修复：确保类名与 HTML 一致 */
     .panel-content {
-        font-size: 0.95rem;
+        font-size: 1.1rem;
         color: var(--primary);
-        writing-mode: vertical-rl; /* 竖排文字 */
+        writing-mode: vertical-rl; /* 关键：实现竖排 */
         letter-spacing: 6px;
         font-weight: 700;
         text-align: center;
+        display: block;
     }
 
-    /* 窄屏下隐藏装饰框以免遮挡内容 */
+    /* 窄屏下隐藏装饰框 */
     @media screen and (max-width: 1350px) {
         .floating-panel { display: none; }
     }

@@ -150,18 +150,18 @@
         transition: all 0.3s ease;
     }
 
-     
     .pos-l { left: 25px; }
-     
     .pos-r { right: 25px; }
 
+     
     .panel-content {
-        font-size: 0.95rem;
+        font-size: 1.1rem;
         color: var(--primary);
         writing-mode: vertical-rl;  
         letter-spacing: 6px;
         font-weight: 700;
         text-align: center;
+        display: block;
     }
 
      
@@ -299,11 +299,11 @@
 
 
 <div class="floating-panel pos-l">
-    <div class="ad-content">智能备课 · 助力语文</div>
+    <div class="panel-content">智能备课 · 助力语文</div>
 </div>
 
 <div class="floating-panel pos-r">
-    <div class="ad-content">资源建设 · 课题合作</div>
+    <div class="panel-content">资源建设 · 课题合作</div>
 </div>
 
 
@@ -347,7 +347,7 @@
         <p id="copy-tip" style="display:none; color:green; font-size:10px; margin-top:5px;">✓ 已复制到剪贴板</p>
     </div>
     
-    <div class="admin-btn" id="toggle-admin" style="display:none; position:fixed; bottom:25px; right:25px; width:44px; height:44px; border-radius:50%; background:#2c3e50; color:white; display:none; justify-content:center; align-items:center; cursor:pointer; box-shadow:0 6px 15px rgba(0,0,0,0.2); font-size:1.3rem; z-index:1000;" onclick="toggleAdminPanel()" title="管理面板">⚙️</div>
+    <div class="admin-btn" id="toggle-admin" style="display:none; position:fixed; bottom:25px; right:25px; width:44px; height:44px; border-radius:50%; background:#2c3e50; color:white; justify-content:center; align-items:center; cursor:pointer; box-shadow:0 6px 15px rgba(0,0,0,0.2); font-size:1.3rem; z-index:1000;" onclick="toggleAdminPanel()" title="管理面板">⚙️</div>
 </div>
 
 
@@ -399,8 +399,6 @@
             
             output.style.display = 'block';
             output.value = `# 请将此行复制到 hugo.toml 的 [params] 区域下：\nbackgroundUrl = "${url}"`;
-        } else {
-            alert("请输入有效的图片 URL");
         }
     }
 
@@ -409,14 +407,12 @@
         const output = document.getElementById('admin-output');
         const tip = document.getElementById('copy-tip');
         const title = prompt("请输入新文章标题：") || "新研究报告";
-        const now = new Date().toISOString();
         const template = `---
 title: "${title}"
-date: ${now}
+date: ${new Date().toISOString()}
 draft: false
 author: "课题组"
-description: "在此输入简短的文章摘要..."
-categories: ["研究报告"]
+description: "在此输入摘要..."
 tags: ["AI", "语文教育"]
 ---
 
@@ -432,7 +428,7 @@ tags: ["AI", "语文教育"]
             tip.style.display = 'block';
             setTimeout(() => { tip.style.display = 'none'; }, 3000);
         } catch (err) {
-            alert("自动复制失败，请手动选择文本框内容复制。");
+            console.error("复制失败");
         }
     }
 
