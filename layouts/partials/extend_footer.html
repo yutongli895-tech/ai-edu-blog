@@ -1,103 +1,159 @@
-<!-- 路径: layouts/partials/extend_footer.html -->
+<!-- 
+    路径: layouts/partials/extend_footer.html 
+    功能: 承载背景层、侧边装饰框、页脚信息及管理员工具箱逻辑
+-->
 
+<!-- 1. 背景层容器 (由 extend_head.html 中的 CSS 变量驱动) -->
 <div id="custom-bg-layer"></div>
 <div id="bg-overlay-layer"></div>
 
-<div class="side-ad-slot ad-left"><div class="ad-content">智能备课 · 助力语文</div></div>
-<div class="side-ad-slot ad-right"><div class="ad-content">资源建设 · 课题合作</div></div>
+<!-- 2. 侧边悬浮装饰框 (修正为一左一右布局) -->
+<div class="floating-panel pos-l">
+    <div class="ad-content">智能备课 · 助力语文</div>
+</div>
 
-<!-- 页脚信息 -->
+<div class="floating-panel pos-r">
+    <div class="ad-content">资源建设 · 课题合作</div>
+</div>
+
+<!-- 3. 页脚自定义内容区 -->
 <div class="footer-custom" style="text-align:center; padding:30px; border-top:1px dashed #ddd; margin-top:50px; font-size:0.9rem; color:#666;">
     <div onclick="loginAdmin()" style="cursor:pointer; margin-bottom:10px;">
         <span style="background:#2c3e50; color:white; padding:2px 8px; border-radius:4px; margin-right:8px;">公众号</span>
-        <strong>@浅墨青言</strong> | 友情链接：<a href="#" style="color:#1a5fb4;">我的博客</a>
+        <strong>@浅墨青言</strong> | 友情链接：<a href="https://yourblog.com" target="_blank" style="color:#1a5fb4; font-weight:600;">我的博客</a>
     </div>
-    <div id="realtime-clock" style="color:#1a5fb4; font-weight:700; margin-bottom:10px;">载入时间...</div>
-    <div style="opacity:0.6;">本站由 AI 赋能语文教育课题组维护</div>
+
+    <!-- 实时时钟显示 -->
+    <div id="realtime-clock" style="color:#1a5fb4; font-weight:700; margin-bottom:10px;">正在载入时间...</div>
+    
+    <!-- 访问量统计 (不蒜子) -->
+    <div style="opacity:0.6; font-size: 0.8rem;">
+        <span id="busuanzi_container_site_pv" style="display:none">
+            本站总访问量 <span id="busuanzi_value_site_pv"></span> 次
+        </span>
+        <br/>
+        <span>本站由 AI 赋能语文教育课题组维护</span>
+    </div>
 </div>
 
-<!-- 管理员工具箱 (默认隐藏) -->
+<!-- 4. 管理员工具箱 (默认隐藏，点击页脚“公众号”文字触发) -->
 <div id="admin-tools">
-    <div id="admin-panel" class="admin-modal">
-        <h4 style="margin:0 0 15px 0;">🛠 管理员助手</h4>
+    <div id="admin-panel" class="admin-modal" style="display:none; position:fixed; bottom:80px; right:25px; background:white; padding:20px; border-radius:15px; box-shadow:0 10px 40px rgba(0,0,0,0.15); width:300px; border:1px solid #eee; z-index:1001;">
+        <h4 style="margin:0 0 15px 0; color:#2c3e50; border-bottom:2px solid #1a5fb4; display:inline-block;">🛠 管理员助手</h4>
         
-        <p style="font-size:12px; color:#999; margin-bottom:5px;">更换背景预览：</p>
+        <!-- 背景预览功能 -->
+        <p style="font-size:12px; color:#999; margin:10px 0 5px 0;">背景图预览 (URL)：</p>
         <div style="display:flex; gap:5px; margin-bottom:15px;">
-            <input type="text" id="bg-input" placeholder="输入图片 URL" style="flex:1; padding:5px; border:1px solid #ddd; border-radius:4px; font-size:12px;">
-            <button onclick="previewBg()" style="padding:5px 10px; background:#1a5fb4; color:white; border:none; border-radius:4px; cursor:pointer;">预览</button>
+            <input type="text" id="bg-input" placeholder="输入图片直链..." style="flex:1; padding:5px; border:1px solid #ddd; border-radius:4px; font-size:12px; outline:none;">
+            <button onclick="previewBg()" style="padding:5px 10px; background:#1a5fb4; color:white; border:none; border-radius:4px; cursor:pointer; font-size:12px;">预览</button>
         </div>
 
-        <p style="font-size:12px; color:#999; margin-bottom:5px;">生成文章头部 (Markdown)：</p>
-        <button onclick="genPostTemplate()" style="width:100%; padding:8px; background:#2c3e50; color:white; border:none; border-radius:4px; cursor:pointer; margin-bottom:10px;">生成写稿模板</button>
+        <!-- 写稿模板功能 -->
+        <p style="font-size:12px; color:#999; margin-bottom:5px;">内容创作辅助：</p>
+        <button onclick="genPostTemplate()" style="width:100%; padding:8px; background:#2c3e50; color:white; border:none; border-radius:4px; cursor:pointer; margin-bottom:10px; font-size:12px;">生成写稿模板并复制</button>
         
-        <textarea id="admin-output" style="width:100%; height:80px; font-size:11px; padding:5px; border:1px solid #eee; background:#f9f9f9; display:none;"></textarea>
+        <!-- 结果输出区 -->
+        <textarea id="admin-output" style="width:100%; height:80px; font-size:11px; padding:5px; border:1px solid #eee; background:#f9f9f9; display:none; resize:none; font-family:monospace;"></textarea>
+        <p id="copy-tip" style="display:none; color:green; font-size:10px; margin-top:5px;">✓ 已复制到剪贴板</p>
     </div>
-    <div class="admin-btn" id="toggle-admin" style="display:none;" onclick="toggleAdminPanel()">⚙️</div>
+    <!-- 悬浮设置按钮 -->
+    <div class="admin-btn" id="toggle-admin" style="display:none; position:fixed; bottom:25px; right:25px; width:44px; height:44px; border-radius:50%; background:#2c3e50; color:white; display:none; justify-content:center; align-items:center; cursor:pointer; box-shadow:0 6px 15px rgba(0,0,0,0.2); font-size:1.3rem; z-index:1000;" onclick="toggleAdminPanel()" title="管理面板">⚙️</div>
 </div>
 
+<!-- 5. 核心逻辑脚本 -->
 <script>
-    // 1. 实时时钟
+    // --- 5.1 实时时钟 ---
     function updateClock() {
         const now = new Date();
         const options = { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
         const timeString = new Intl.DateTimeFormat('zh-CN', options).format(now);
         const weekDays = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
-        document.getElementById('realtime-clock').innerHTML = `${timeString} ${weekDays[now.getDay()]}`;
+        const el = document.getElementById('realtime-clock');
+        if (el) el.innerHTML = `${timeString} ${weekDays[now.getDay()]}`;
     }
-    setInterval(updateClock, 1000); updateClock();
+    setInterval(updateClock, 1000); 
+    updateClock();
 
-    // 2. 管理员逻辑
+    // --- 5.2 管理员登录 (点击页脚“公众号”触发) ---
     function loginAdmin() {
-        const pass = prompt("请输入管理口令：");
+        const pass = prompt("请输入管理员口令：");
         if (pass === "admin888") {
-            document.getElementById('toggle-admin').style.display = 'flex';
-            alert("管理员权限已开启，点击右下角齿轮使用工具。");
+            const btn = document.getElementById('toggle-admin');
+            if (btn) btn.style.display = 'flex';
+            alert("✅ 管理权限已开启。请点击右下角齿轮图标。");
+            sessionStorage.setItem('is_admin_active', 'true');
+        } else if (pass !== null) {
+            alert("❌ 口令错误，无法开启管理功能。");
         }
     }
 
+    // --- 5.3 切换面板显示 ---
     function toggleAdminPanel() {
         const panel = document.getElementById('admin-panel');
-        panel.style.display = panel.style.display === 'block' ? 'none' : 'block';
+        if (panel) {
+            panel.style.display = (panel.style.display === 'block') ? 'none' : 'block';
+        }
     }
 
-    // 预览并生成配置代码
+    // --- 5.4 背景实时预览 ---
     function previewBg() {
         const url = document.getElementById('bg-input').value.trim();
-        const layer = document.getElementById('custom-bg-layer');
         const output = document.getElementById('admin-output');
         
         if (url) {
-            layer.style.backgroundImage = `url('${url}')`;
-            document.getElementById('bg-overlay-layer').style.background = 'rgba(253, 252, 248, 0.55)';
+            // 通过修改 root 变量实现全站即时预览
+            document.documentElement.style.setProperty('--global-bg', `url('${url}')`);
+            // 降低遮罩透明度以突出背景图效果
+            const overlay = document.getElementById('bg-overlay-layer');
+            if (overlay) overlay.style.background = 'rgba(253, 252, 248, 0.55)';
             
             output.style.display = 'block';
-            output.value = `# 请将此行复制到 hugo.toml 的 [params] 下：\nbackgroundUrl = "${url}"`;
+            output.value = `# 请将此行复制到 hugo.toml 的 [params] 区域下：\nbackgroundUrl = "${url}"`;
+        } else {
+            alert("请输入有效的图片 URL");
         }
     }
 
-    // 生成写文章模板
+    // --- 5.5 生成写文章模板 ---
     function genPostTemplate() {
         const output = document.getElementById('admin-output');
-        const title = prompt("请输入文章标题：") || "新文章";
+        const tip = document.getElementById('copy-tip');
+        const title = prompt("请输入新文章标题：") || "新研究报告";
+        const now = new Date().toISOString();
         const template = `---
 title: "${title}"
-date: ${new Date().toISOString()}
+date: ${now}
 draft: false
 author: "课题组"
-description: "在此输入摘要..."
-tags: ["AI", "语文"]
----`;
+description: "在此输入简短的文章摘要..."
+categories: ["研究报告"]
+tags: ["AI", "语文教育"]
+---
+
+### 导语
+在此开始您的写作内容...`;
+
         output.style.display = 'block';
         output.value = template;
         output.select();
-        document.execCommand('copy');
-        alert("模板已复制到剪贴板，请到 content/posts 下新建 .md 文件粘贴。");
+        
+        try {
+            document.execCommand('copy');
+            tip.style.display = 'block';
+            setTimeout(() => { tip.style.display = 'none'; }, 3000);
+        } catch (err) {
+            alert("自动复制失败，请手动选择文本框内容复制。");
+        }
     }
 
-    // 初始化检查本地是否有临时预览背景
-    window.onload = () => {
-        // 你可以手动在 hugo.toml 设置背景，也可以在这里读取
-    };
+    // 页面加载时检查是否已处于管理模式
+    window.addEventListener('DOMContentLoaded', () => {
+        if (sessionStorage.getItem('is_admin_active') === 'true') {
+            const btn = document.getElementById('toggle-admin');
+            if (btn) btn.style.display = 'flex';
+        }
+    });
 </script>
 
+<!-- 6. 引入不蒜子统计脚本 -->
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
