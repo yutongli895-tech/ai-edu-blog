@@ -2,7 +2,7 @@
 baseURL = 'https://aiyuwen.de5.net/'
 theme = "PaperMod"
 languageCode = 'zh-cn'
-title = 'AI赋能语文教育资源建设'
+title = 'AI赋能语文教学资源建设'
 
 # 允许在 Markdown 中使用原生 HTML (解决侧边栏和页脚渲染问题)
 [markup]
@@ -18,7 +18,7 @@ title = 'AI赋能语文教育资源建设'
     backgroundUrl = "https://img.qianmo.de5.net/PicGo/99581f403e816e015a3e1d6852c88b6c.png"
 
     env = "production"
-    title = "AI 语文教育"
+    title = "AI 语文教学"
     description = "探索人工智能与语文教学的深度融合"
     author = "课题组"
 
@@ -33,7 +33,7 @@ title = 'AI赋能语文教育资源建设'
     # 专家门户首页设置 (Profile Mode)
     [params.profileMode]
         enabled = true
-        title = "AI 赋能语文教育资源建设"
+        title = "AI 赋能语文教学资源建设"
         subtitle = "「 智驭语言 · 文以化人 」<br/><span class='tech-subtitle'>科技引领教学变革，数据驱动教育创新</span>"
         [[params.profileMode.buttons]]
             name = "📚 进入资源库"
@@ -49,7 +49,7 @@ title = 'AI赋能语文教育资源建设'
 
     # 网站标签
     [params.label]
-        text = "AI 语文教育"
+        text = "AI 语文教学"
 
 # 导航菜单设置
 [[menu.main]]
