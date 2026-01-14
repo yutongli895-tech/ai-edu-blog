@@ -6,15 +6,15 @@ title = 'AI赋能语文教学资源建设'
 [markup]
   [markup.goldmark]
     [markup.goldmark.renderer]
-      unsafe = true  # 允许渲染自定义 HTML 和样式
+      unsafe = true  # 允许在 Markdown 中渲染自定义 HTML、中式排版组件或统计脚本
 
 [params]
-    # 建议使用具有文化气息的背景图
+    # 建议使用具有文化底蕴的背景图：如宣纸纹理、古籍卷轴、水墨山水或书斋
     backgroundUrl = "https://images.unsplash.com/photo-1578301978693-85fa9c0320b9?auto=format&fit=crop&q=80"
     
     env = "production"
     title = "AI 语文教学"
-    description = "探索人工智能在文本细读、创意写作及文化传承中的深度应用"
+    description = "探索人工智能在文本细读、创意写作及跨学科语文教育中的深度应用"
     
     ShowReadingTime = true
     ShowCodeCopyButtons = true
@@ -31,12 +31,8 @@ title = 'AI赋能语文教学资源建设'
         [[params.profileMode.buttons]]
             name = "🖋️ 课题简介"
             url = "/about"
-        [[params.profileMode.buttons]]
-            name = "github"
-            url  = "/https://github.com"
 
-
-# 菜单配置
+# 顶部导航菜单配置
 [[menu.main]]
     name = "首页"
     url = "/"
