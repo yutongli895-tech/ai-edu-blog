@@ -31,6 +31,10 @@ title = 'AI赋能语文教学资源建设'
         [[params.profileMode.buttons]]
             name = "🖋️ 课题简介"
             url = "/about"
+        [[params.profileMode.buttons]]
+            name = "github"
+            url  = "/https://github.com"
+
 
 # 菜单配置
 [[menu.main]]
