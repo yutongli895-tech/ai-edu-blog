@@ -1,70 +1,47 @@
-# 修改核心：将 baseURL 指向您的自定义域名
 baseURL = 'https://aiyuwen.de5.net/'
 theme = "PaperMod"
 languageCode = 'zh-cn'
 title = 'AI赋能语文教学资源建设'
 
-# 允许在 Markdown 中使用原生 HTML (解决侧边栏和页脚渲染问题)
 [markup]
   [markup.goldmark]
     [markup.goldmark.renderer]
-      unsafe = true
-
-[outputs]
-    home = ["HTML", "RSS", "JSON"]
+      unsafe = true  # 允许渲染自定义 HTML 和样式
 
 [params]
-    # 全局背景图片设置
-    backgroundUrl = "https://img.qianmo.de5.net/PicGo/99581f403e816e015a3e1d6852c88b6c.png"
-
+    # 建议使用具有文化气息的背景图
+    backgroundUrl = "https://images.unsplash.com/photo-1578301978693-85fa9c0320b9?auto=format&fit=crop&q=80"
+    
     env = "production"
     title = "AI 语文教学"
-    description = "探索人工智能与语文教学的深度融合"
-    author = "课题组"
-
-    # 界面功能开关
+    description = "探索人工智能在文本细读、创意写作及文化传承中的深度应用"
+    
     ShowReadingTime = true
-    ShowShareButtons = true
-    ShowPostNavLinks = true
-    ShowBreadCrumbs = true
     ShowCodeCopyButtons = true
-    ShowToc = true 
+    ShowToc = true
 
-    # 专家门户首页设置 (Profile Mode)
+    # 首页专家模式 (Profile Mode)
     [params.profileMode]
         enabled = true
         title = "AI 赋能语文教学资源建设"
-        subtitle = "「 智驭语言 · 文以化人 」<br/><span class='tech-subtitle'>科技引领教学变革，数据驱动教育创新</span>"
+        subtitle = "「 智驭语言 · 文以化人 」<br/><span class='edu-subtitle'>Classic Wisdom · Intelligent Pedagogy</span>"
         [[params.profileMode.buttons]]
-            name = "📚 进入资源库"
+            name = "📖 资源库"
             url = "/posts"
         [[params.profileMode.buttons]]
-            name = "🔍 关于课题组"
+            name = "🖋️ 课题简介"
             url = "/about"
 
-    # 社交链接
-    [[params.socialIcons]]
-        name = "github"
-        url = "https://github.com"
-
-    # 网站标签
-    [params.label]
-        text = "AI 语文教学"
-
-# 导航菜单设置
+# 菜单配置
 [[menu.main]]
     name = "首页"
     url = "/"
     weight = 10
 [[menu.main]]
-    name = "资源库"
+    name = "教研资源"
     url = "/posts"
     weight = 20
 [[menu.main]]
-    name = "搜索"
-    url = "/search"
-    weight = 30
-[[menu.main]]
-    name = "关于我们"
+    name = "关于课题"
     url = "/about"
-    weight = 40
+    weight = 30

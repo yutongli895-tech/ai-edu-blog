@@ -1,106 +1,105 @@
-<!-- 
-    路径: layouts/partials/extend_head.html
-    功能: 定义全站 CSS 样式（背景、流光条、Logo 动画、左右侧边装饰框、管理工具箱）
--->
-
+<!-- 路径: layouts/partials/extend_head.html -->
 <style>
-    /* 1. 全局变量与字体 */
-    @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&display=swap');
+    /* 引入人文感极强的思源宋体与现代化的 Inter */
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&family=Inter:wght@400;700&display=swap');
 
     :root {
-        --theme: #1a5fb4;
-        --primary: #2c3e50;
-        --entry: rgba(255, 255, 255, 0.85);
-        --bg-overlay: rgba(253, 252, 248, 0.9);
-        --global-bg: url('{{ .Site.Params.backgroundUrl | default "" }}'); 
+        --theme: #b21f1f;      /* 课题朱红 - 沉稳且具有学科代表性 */
+        --primary: #2c3e50;    /* 墨色 - 展现文字的厚重感 */
+        --entry: rgba(255, 255, 255, 0.92); 
+        --bg-overlay: rgba(253, 252, 248, 0.9); /* 宣纸白 */
+        --global-bg: url('{{ .Site.Params.backgroundUrl }}');
     }
 
-    /* 2. 顶部流光条 */
+    /* 1. 顶部流光装饰条 - 寓意文化长河与数字信息的交织 */
     body::before {
         content: "";
         display: block; height: 4px; width: 100%;
         background: linear-gradient(90deg, #1a2a6c, #b21f1f, #fdbb2d, #1a2a6c);
         background-size: 300% 100%;
-        animation: flowGradient 8s linear infinite;
+        animation: cultureFlow 8s linear infinite;
         position: fixed; top: 0; left: 0; z-index: 9999;
     }
-    @keyframes flowGradient {
+    @keyframes cultureFlow {
         0% { background-position: 0% 50%; }
         100% { background-position: 100% 50%; }
     }
 
-    /* 3. 背景控制 */
+    /* 2. 背景与意境排版 */
     body {
         position: relative; min-height: 100vh;
         background-color: #fdfcf8 !important;
         font-family: "Noto Serif SC", serif !important;
         color: var(--primary) !important;
+        line-height: 1.8;
     }
 
     #custom-bg-layer {
         position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2;
         background-image: var(--global-bg);
         background-size: cover; background-position: center; background-attachment: fixed;
-        transition: background-image 0.8s ease-in-out;
+        opacity: 0.8;
     }
 
     #bg-overlay-layer {
         position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;
         background: var(--bg-overlay);
-        background-image: radial-gradient(rgba(26, 95, 180, 0.05) 0.8px, transparent 0.8px);
+        /* 宣纸点阵纹理 - 模拟纸张质感 */
+        background-image: radial-gradient(rgba(178, 31, 31, 0.04) 1px, transparent 1px);
         background-size: 30px 30px;
         pointer-events: none;
     }
 
-    /* 4. Logo 动画 */
-    @keyframes logoFloat {
-        0%, 100% { transform: translateY(0px); filter: drop-shadow(0 5px 15px rgba(26, 95, 180, 0.1)); }
-        50% { transform: translateY(-12px); filter: drop-shadow(0 20px 35px rgba(26, 95, 180, 0.2)); }
-    }
-    .profile_inner img { animation: logoFloat 5s ease-in-out infinite; }
-
-    /* 5. 侧边悬浮装饰框样式 */
+    /* 3. 侧边悬浮面板（语文教育深度定制版） */
     .floating-panel {
-        position: fixed;
-        top: 50%;
-        transform: translateY(-50%);
-        width: 130px;
-        height: 360px;
-        background: rgba(255, 255, 255, 0.75);
-        backdrop-filter: blur(10px);
-        border: 1px solid rgba(0, 0, 0, 0.06);
-        border-radius: 16px;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        z-index: 90;
-        padding: 15px;
-        box-shadow: 0 15px 35px rgba(0,0,0,0.05);
+        position: fixed; top: 50%; transform: translateY(-50%);
+        width: 120px; height: 340px;
+        background: rgba(255, 255, 255, 0.8);
+        backdrop-filter: blur(15px);
+        border: 2px solid var(--theme);
+        border-radius: 20px;
+        display: flex; flex-direction: column; justify-content: center; align-items: center;
+        z-index: 90; box-shadow: 0 15px 40px rgba(178, 31, 31, 0.1);
         transition: all 0.3s ease;
     }
+    .pos-l { left: 30px; }
+    .pos-r { right: 30px; }
 
-    .pos-l { left: 25px; }
-    .pos-r { right: 25px; }
+    .floating-panel:hover {
+        transform: translateY(-50%) scale(1.02);
+        box-shadow: 0 20px 50px rgba(178, 31, 31, 0.2);
+    }
 
-    /* 核心修复：确保类名与 HTML 一致 */
     .panel-content {
-        font-size: 1.1rem;
-        color: var(--primary);
-        writing-mode: vertical-rl; /* 关键：实现竖排 */
-        letter-spacing: 6px;
-        font-weight: 700;
-        text-align: center;
-        display: block;
+        writing-mode: vertical-rl;
+        letter-spacing: 8px;
+        font-weight: 800;
+        color: var(--theme);
+        font-size: 1.2rem;
+        text-shadow: 1px 1px 0px rgba(255,255,255,0.8);
     }
 
-    /* 窄屏下隐藏装饰框 */
-    @media screen and (max-width: 1350px) {
-        .floating-panel { display: none; }
+    /* 标题特定样式 */
+    .edu-subtitle {
+        font-family: 'Inter', sans-serif;
+        background: rgba(178, 31, 31, 0.08);
+        padding: 2px 10px;
+        border-radius: 4px;
+        color: var(--theme);
+        font-size: 0.9rem;
     }
 
-    /* 6. 管理员工具箱 UI */
-    #admin-tools { position: fixed; bottom: 25px; right: 25px; z-index: 1000; display: flex; flex-direction: column; align-items: flex-end; gap: 12px; }
-    .admin-btn { width: 44px; height: 44px; border-radius: 50%; background: var(--primary); color: white; display: flex; justify-content: center; align-items: center; cursor: pointer; box-shadow: 0 6px 15px rgba(0,0,0,0.2); font-size: 1.3rem; }
-    .admin-modal { display: none; background: white; padding: 20px; border-radius: 15px; box-shadow: 0 10px 40px rgba(0,0,0,0.15); width: 300px; border: 1px solid #eee; }
+    @media screen and (max-width: 1400px) { .floating-panel { display: none; } }
+
+    /* 文章卡片美化：模拟线装书内页感 */
+    .post-entry {
+        background: var(--entry) !important;
+        border: 1px solid rgba(178, 31, 31, 0.1) !important;
+        border-radius: 12px !important;
+        transition: all 0.3s ease !important;
+    }
+    .post-entry:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 35px rgba(178, 31, 31, 0.15) !important;
+    }
 </style>
