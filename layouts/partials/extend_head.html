@@ -1,17 +1,20 @@
+<!-- Google 验证元标记 -->
+<meta name="google-site-verification" content="ZQWOug9UxdJUHospm9e0r27AjqX5jqnfAp9kT31iZ_c" />
+
 <!-- 路径: layouts/partials/extend_head.html -->
 <style>
     /* 引入人文感极强的思源宋体与现代化的 Inter */
     @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&family=Inter:wght@400;700&display=swap');
 
     :root {
-        --theme: #b21f1f;      /* 课题朱红 - 沉稳且具有学科代表性 */
-        --primary: #2c3e50;    /* 墨色 - 展现文字的厚重感 */
+        --theme: #b21f1f;      /* 课题朱红 */
+        --primary: #2c3e50;    /* 墨色 */
         --entry: rgba(255, 255, 255, 0.92); 
         --bg-overlay: rgba(253, 252, 248, 0.9); /* 宣纸白 */
         --global-bg: url('{{ .Site.Params.backgroundUrl }}');
     }
 
-    /* 1. 顶部流光装饰条 - 寓意文化长河与数字信息的交织 */
+    /* 顶部流光装饰条 */
     body::before {
         content: "";
         display: block; height: 4px; width: 100%;
@@ -25,7 +28,7 @@
         100% { background-position: 100% 50%; }
     }
 
-    /* 2. 背景与意境排版 */
+    /* 背景与意境排版 */
     body {
         position: relative; min-height: 100vh;
         background-color: #fdfcf8 !important;
@@ -44,13 +47,12 @@
     #bg-overlay-layer {
         position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;
         background: var(--bg-overlay);
-        /* 宣纸点阵纹理 - 模拟纸张质感 */
         background-image: radial-gradient(rgba(178, 31, 31, 0.04) 1px, transparent 1px);
         background-size: 30px 30px;
         pointer-events: none;
     }
 
-    /* 3. 侧边悬浮面板（语文教育深度定制版） */
+    /* 侧边悬浮面板 */
     .floating-panel {
         position: fixed; top: 50%; transform: translateY(-50%);
         width: 120px; height: 340px;
@@ -60,15 +62,9 @@
         border-radius: 20px;
         display: flex; flex-direction: column; justify-content: center; align-items: center;
         z-index: 90; box-shadow: 0 15px 40px rgba(178, 31, 31, 0.1);
-        transition: all 0.3s ease;
     }
     .pos-l { left: 30px; }
     .pos-r { right: 30px; }
-
-    .floating-panel:hover {
-        transform: translateY(-50%) scale(1.02);
-        box-shadow: 0 20px 50px rgba(178, 31, 31, 0.2);
-    }
 
     .panel-content {
         writing-mode: vertical-rl;
@@ -79,7 +75,6 @@
         text-shadow: 1px 1px 0px rgba(255,255,255,0.8);
     }
 
-    /* 标题特定样式 */
     .edu-subtitle {
         font-family: 'Inter', sans-serif;
         background: rgba(178, 31, 31, 0.08);
@@ -91,7 +86,6 @@
 
     @media screen and (max-width: 1400px) { .floating-panel { display: none; } }
 
-    /* 文章卡片美化：模拟线装书内页感 */
     .post-entry {
         background: var(--entry) !important;
         border: 1px solid rgba(178, 31, 31, 0.1) !important;
@@ -100,6 +94,6 @@
     }
     .post-entry:hover {
         transform: translateY(-5px);
-        box-shadow: 0 12px 35px rgba(178, 31, 31, 0.15) !important;
+        box-shadow: 0 10px 30px rgba(178, 31, 31, 0.12) !important;
     }
 </style>
