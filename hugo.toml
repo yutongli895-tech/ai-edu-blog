@@ -45,3 +45,8 @@ title = 'AI赋能语文教学资源建设'
     name = "关于课题"
     url = "/about"
     weight = 30
+
+[sitemap]
+  changefreq = 'weekly'
+  filename = 'sitemap.xml'
+  priority = 0.5
